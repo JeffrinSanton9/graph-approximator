@@ -10,6 +10,4 @@ class User(Base):
     username = Column(String, unique=True, nullable=False)
     email = Column(String, unique=True, nullable=False)
 
-    sessions = relationship("Session", back_populates="user", cascade="all, delete-orphan")
-
-
+    sessions = relationship("Sessions", back_populates="user", cascade="all, delete-orphan")

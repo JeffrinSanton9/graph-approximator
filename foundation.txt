@@ -1,17 +1,11 @@
 ﻿GRAPH APPROXIMATOR
 Author : Jeffrin Santon T
 
-
-
-
 PROJECT OVERVIEW
-
 
 A full stack application to approximate discrete data points to a function as a string
 
-
 Database Design
-
 
 1. TABLE users (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,10 +43,6 @@ point_id INTEGER PRIMARY KEY AUTOINCREMENT,
 )
 
 
-
-
-
-
 Description
 Data points table contains all the data points created by multiple users and they are mapped to the session table using session id foreign key
 It stores data points as x value and y value
@@ -63,7 +53,6 @@ Backend Design API end points
 
 User Endpoints
 
-
 POST /user - Create new user
 PUT /user/{id} - Update user information
 DELETE /user/{id} - Delete user
@@ -71,7 +60,6 @@ GET user/{id} - Get user information
 
 
 Session Endpoints
-
 
 POST /session - Create new session
 PUT /session - Update session information
@@ -81,13 +69,12 @@ GET /session/approximate - approximate all the session’s data points
 GET /session/{user_id} - Get all the sessions belongs to a particular user
 
 
-
-
 Datapoint Endpoints
 
-
-POST /datapoint - Create new datapoint
+POST /datapoint - Create new datapoints
 PUT /datapoint - Update datapoint
 DELETE /datapoint/{id} - Delete datapoint
 GET /datapoint/{id} - Get datapoint information
 GET /datapoint/{session_id} - Get all datapoints belongs to a particular session
+
+
