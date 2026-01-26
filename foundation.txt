@@ -65,7 +65,6 @@ POST /session - Create new session
 PUT /session - Update session information
 DELETE /session/{id} - Delete session
 GET /session/{id} - Get user information
-GET /session/approximate - approximate all the session’s data points
 GET /session/{user_id} - Get all the sessions belongs to a particular user
 
 
@@ -77,4 +76,8 @@ DELETE /datapoint/{id} - Delete datapoint
 GET /datapoint/{id} - Get datapoint information
 GET /datapoint/{session_id} - Get all datapoints belongs to a particular session
 
+Approximator Endpoints:
 
+POST /approximate/series/{session_id} - Get approximated function using taylor series
+POST /approximate/polynomial/{session_id} - Get approximated function using polynomial regression 
+POST /approximate/linear/{session_id} - Get approximated function using linear regression
