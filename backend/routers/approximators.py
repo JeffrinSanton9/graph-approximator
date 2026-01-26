@@ -66,7 +66,7 @@ def taylor_approximator(
         "result": result,
     }
 
-@router.get("linear/{session_id}")
+@router.get("/linear/{session_id}")
 def linear_approximator(
         session_id : int,
         db: Session = Depends(get_db)

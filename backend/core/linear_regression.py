@@ -7,9 +7,10 @@ def linear_regression(points , no_of_points):
         summation_y += points[i][1]
         summation_sqx += points[i][0]*points[i][0]
         summation_xy += points[i][0]*points[i][1]
+
     #slope calculation
     slope = ((no_of_points*summation_xy) - (summation_x*summation_y))/((no_of_points*summation_sqx) - (summation_x * summation_x))
     #Y-Intercept calculation
     y_intercept = (summation_y - (slope*summation_x))/no_of_points
-    output = "y = " + str(slope) +"*" + "x" + " + " + str(y_intercept) 
+    output = str(slope) +" * " + "x " + "+ " + str(y_intercept) 
     return output

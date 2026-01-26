@@ -81,3 +81,33 @@ Approximator Endpoints:
 POST /approximate/series/{session_id} - Get approximated function using taylor series
 POST /approximate/polynomial/{session_id} - Get approximated function using polynomial regression 
 POST /approximate/linear/{session_id} - Get approximated function using linear regression
+
+Core:
+
+Approximation:
+    -Taylor Series
+    -Polynomial Regression
+    -Linear Regression
+
+Frontend Design:
+
+Core:
+    Plotter - which will plot the function for the users to analyze.
+     
+    
+
+Routes:
+
+home        "/" -> information about the website, navigation and what it is used for and all such information. 
+
+
+
+user_login  "/user" -> login page for users
+user        "/user/{user_id}" -> user page with session list where user can select any session
+
+session     "/session/{user_id}" -> session page where user can add points, approximate etc.,
+            
+
+
+
+

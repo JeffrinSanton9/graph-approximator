@@ -14,8 +14,11 @@ def derivative(points):
 
 
 def taylor_series(points , point_of_approx, no_of_terms=10):
-    approx_function = "f(x) = "  
-    approx_function += str(point_of_approx[1]) + "+"
+    approx_function = "" 
+    if no_of_terms > 1:
+        approx_function += str(point_of_approx[1]) + "+"
+    else:
+        approx_function += str(point_of_approx[1])
     cur_function = points
     for i in range(1 , no_of_terms):
         cur_function = derivative(cur_function)
@@ -29,5 +32,8 @@ def taylor_series(points , point_of_approx, no_of_terms=10):
                 approx_function +=  "(x -" +str(point_of_approx[0]) + ")" + "^" + str(i)
                 return approx_function 
         approx_function += "(x - " + str(point_of_approx[0]) + ")" + "^" +str(i)
-        approx_function += "+"
+        if i != no_of_terms - 1:
+            approx_function += "+"
     return approx_function
+
+print(taylor_series([(2,3),(4,5),(2,4),(1,4)], (1, 1), 10))
