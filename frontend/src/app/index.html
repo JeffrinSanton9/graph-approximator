@@ -1,0 +1,34 @@
+<head>
+    <script>
+
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.beginPath();        // start drawing
+      ctx.moveTo(50, 50);     // starting point
+      ctx.lineTo(400, 200);   // ending point
+      ctx.stroke();           // draw the line
+        const canvas = document.getElementByID("canvas");
+        const ctx = canvas.getContext('2d');
+        const cur = 0;
+        ctx.beginPath();
+        while(cur < 600){
+            ctx.moveTo(cur, 0);
+            ctx.lineTo(cur, 600);
+            ctx.strokeStyle = "Black";
+            ctx.lineWidth = 20;
+            ctx.stroke();
+            cur += 20
+        }
+    </script>
+    <body>
+        <canvas id="canvas" width="500" height="300" style="border:1px solid black;"></canvas>
+    </body>
+    <style>
+        #canvas{
+            background-color: #ADD8E6;
+            width: 600;
+            height: 600;
+        }
+    </style>
+</head>

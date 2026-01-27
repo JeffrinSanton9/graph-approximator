@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas Line</title>
+</head>
+<body>
+
+<canvas id="canvas" width="500" height="500" style="border:1px solid black;"></canvas>
+
+<script>
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    var cur = 0;
+    while(cur <= 500){
+        ctx.beginPath();        // start drawing
+        ctx.moveTo(cur, 0);     // starting point
+        ctx.lineTo(cur, 500);   // ending point
+        ctx.stroke();           // draw the line
+        cur += 20;
+    }
+    cur = 0;
+    while(cur <= 500){
+        ctx.beginPath();        // start drawing
+        ctx.moveTo(0, cur);     // starting point
+        ctx.lineTo(500, cur);   // ending point
+        ctx.stroke();           // draw the line
+        cur += 20;
+    }
+</script>
+
+
+</body>
+</html>
