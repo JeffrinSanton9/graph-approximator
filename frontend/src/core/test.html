@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing</title>
+
+    <style>
+      #plot {
+        background-color: lightskyblue;
+        width: 500px;
+        height: 500px;
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="plot" width="500" height="500"></canvas>
+
+    <input type="range" id="xp-pan" min="0" max="100"></input>
+    <input type="range" id="xn-pan" min="0" max="100"></input>
+    <input type="range" id="yp-pan" min="0" max="100"></input>
+    <input type="range" id="yn-pan" min="0" max="100"></input>
+
+    <!-- ES module must be loaded via HTTP server -->
+    <script type="module" src="./plotter.js"></script>
+  </body>
+</html>
