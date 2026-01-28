@@ -16,7 +16,7 @@ export function transform_x(x_domain, canvas_domain, y){
 //this function will transform the points in the function's y domain to the canvas's y domain
 export function transform_y(y_domain, canvas_domain, x){
     //the points are (0, y_domain[0]) and (canvas_domain[1], y_domain[1])
-    const y_canvas = ((canvas_domain[1] - 0)/(y_domain[1] - y_domain[0]) * (x - y_domain[0])); 
+    const y_canvas = ((canvas_domain[1] - 0)/(y_domain[0] - y_domain[1]) * (x - y_domain[1])); 
 
     return y_canvas;
 }

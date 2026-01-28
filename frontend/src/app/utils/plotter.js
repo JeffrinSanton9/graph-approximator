@@ -1,6 +1,8 @@
 import transform from './transform.js';
 import { transform_x, transform_y } from './transform.js';
 import grid_printer from './grid.js';
+import plot_printer from './plot_printer.js';
+
 function plotter() {
     const WIDTH = 500;
     const HEIGHT = 500;
@@ -16,6 +18,8 @@ function plotter() {
 
     const canvas_domain = [WIDTH, HEIGHT]
     grid_printer(ctx, x_domain, y_domain, canvas_domain);
+    plot_printer(ctx, x_domain, y_domain, canvas_domain, "x^2"); 
+
     const xp_pan_slider = document.getElementById('xp-pan');
     const xn_pan_slider = document.getElementById('xn-pan');
     const yp_pan_slider = document.getElementById('yp-pan');
