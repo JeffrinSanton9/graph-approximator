@@ -7,7 +7,7 @@ export default function Home() {
     const math = require("mathjs");
     return (
         <>
-            <Canvas expression = {"x*x"}/>
+            <Canvas expression = {"x^2 + 2"}/>
         </>
     );
 }
