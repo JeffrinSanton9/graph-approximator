@@ -15,30 +15,26 @@ export default function Canvas({ expression }){
     const canvasRef = useRef(null);
     const rangeBar = useRef(null);
 
-    var x_domain = [-10, 10];
-    var y_domain = [-10, 10];
+    var x_domain = [-100, 100];
+    var y_domain = [-100, 100];
 
     const canvas_domain = [WIDTH, HEIGHT];
 
     useEffect(() =>{
-
         const canvas = canvasRef.current;
-
         const onWheel = (e) =>{
-            //console.log(e.deltaX, e.deltaY);
-            console.log("tranform : ", transform(x_domain, y_domain, canvas_domain, 250, 250));
-            //console.log(e.clientX, e.clientY);
-    
+            console.log("Before", "x domain : ", x_domain, "y domain :", y_domain);
             zoom([e.clientX, e.clientY], x_domain, y_domain, canvas_domain);
+            console.log("after", "x domain : ", x_domain, "y domain :", y_domain);
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, WIDTH, HEIGHT);
+            grid_printer(ctx, x_domain, y_domain, canvas_domain);
+            plot_printer(ctx, x_domain, y_domain, canvas_domain, expression);
         }
-
         canvas.addEventListener("wheel", onWheel, { passive : false });
-
-
         return () => canvas.removeEventListener("wheel", onWheel);
 
     }, []);
-
 
     useEffect(() => {
         const canvas = canvasRef.current;

@@ -21,6 +21,6 @@ export function transform_y(y_domain, canvas_domain, x){
 
     //the points are (y_domain[0], 0) and (y_domain[1], canvas_domain[1])
     //line equation is (x - y_domain[0])/(y_domain[1] - y_domain[0]) == (y)/(canvas_domain[1])
-    const y_fdomain = ((x * (y_domain[1] - y_domain[0]))/(canvas_domain[1])) + y_domain[0];
+    const y_fdomain = ((x * (y_domain[0] - y_domain[1]))/(canvas_domain[1])) + y_domain[1];
     return y_fdomain;
 }
