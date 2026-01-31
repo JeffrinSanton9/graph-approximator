@@ -6,6 +6,9 @@ export default function evaluator(x_domain, y_domain, canvas_domain, expression,
 
     
     const res = expr_com.evaluate({x});
+    if(Math.abs(res) > 40000){
+        return NaN;
+    }
     return res;  
 }
 

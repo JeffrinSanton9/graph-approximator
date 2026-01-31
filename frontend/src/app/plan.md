@@ -38,7 +38,7 @@ While drawing the canvas, the panning depends on the zoom factor.<br>
 Panning and Zooming changes x and y domain which fires the redraw function<br>
 
 
-## Drawing(draw)
+## Drawing(draw) 
 This function will erase the whole canvas wherever called, and start to draw<br>
 
 ### Grid Drawing
@@ -59,4 +59,13 @@ Whenever the domain changes the remapping between them will happen and grid will
 `Step 1` : Talking sample points from the function with even intervals.<br>
 `Step 2` : The taken sample points are in the function domain it require changing to the canvas domain.<br>
 `Step 3` : Draw lines between those sample points.<br>
+
+## Zooming
+
+### Choosing anchor
+An **anchor** is a 2D coordinate in the current **canvas domain function domain**.<br>
+Soon After the anchor is chosen, We need to reduce the x, y domain to have some value and after this the x, y domain values will be reduced by constant value.<br>
+
+## Panning
+(Will be planned)
 

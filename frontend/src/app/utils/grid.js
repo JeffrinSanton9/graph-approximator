@@ -1,14 +1,16 @@
-import transform from './transform.js';
-import { transform_x, transform_y } from './transform.js';
+import transform from './domain_to_canvas.js';
+import { transform_x, transform_y } from './domain_to_canvas.js';
 export default function grid_printer(ctx, x_domain, y_domain, canvas_domain){
     //rounds off to the nearest 5 multiple
     var cur = x_domain[0] + (5 - (x_domain[0] % 5));
+
     ctx.lineWidth = 1;
     ctx.strokeStyle = "black";
+
     while(cur < x_domain[1]){
         const x_canvas = transform_x(x_domain, canvas_domain, cur);
         if(cur == 0.0){
-            ctx.lineWidth = 4;
+            ctx.lineWidth = 2;
         }
         ctx.beginPath();
         ctx.moveTo(x_canvas, 0);
@@ -25,7 +27,7 @@ export default function grid_printer(ctx, x_domain, y_domain, canvas_domain){
 
 
         if(cur === 0){
-            ctx.lineWidth = 4;
+            ctx.lineWidth = 2;
         }
         ctx.beginPath();
         ctx.moveTo(0, y_canvas);
