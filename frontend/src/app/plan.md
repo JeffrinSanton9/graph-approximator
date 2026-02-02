@@ -67,5 +67,5 @@ An **anchor** is a 2D coordinate in the current **canvas domain function domain*
 Soon After the anchor is chosen, We need to reduce the x, y domain to have some value and after this the x, y domain values will be reduced by constant value.<br>
 
 ## Panning
-(Will be planned)
-
+Whenever the user drag he will start from a point in the canvas and end at someother point in that canvas
+In so doing i got the start and end point this is the desired values of panning however this must be in the opposite because they are used to the comtemporary graphing tools

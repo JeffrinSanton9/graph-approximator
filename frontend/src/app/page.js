@@ -7,7 +7,7 @@ export default function Home() {
     const math = require("mathjs");
     return (
         <>
-            <Canvas expression = {"x^2 + 2"}/>
+            <Canvas expression = {"e^(-0.1 * x)sin(5x)"}/>
         </>
     );
 }
