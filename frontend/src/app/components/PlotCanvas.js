@@ -21,6 +21,10 @@ export default function Canvas({ expression }){
 
     const canvas_domain = [WIDTH, HEIGHT];
 
+    const startX = useRef(0);
+    const startY = useRef(0);
+    const isDragging = useRef(false);
+
     //zooming
     useEffect(() =>{
         const canvas = canvasRef.current;
@@ -28,6 +32,7 @@ export default function Canvas({ expression }){
 
             if(e.deltaY < 0){
                 const { x_dom, y_dom } = zoom_in([e.clientX, e.clientY], x_domain.current, y_domain.current, canvas_domain);
+                console.log(x_dom, y_dom);
                 x_domain.current = x_dom;
                 y_domain.current = y_dom;
             }
@@ -48,9 +53,6 @@ export default function Canvas({ expression }){
         return () => canvas.removeEventListener("wheel", onWheel);
 
     }, []);
-    const startX = useRef(0);
-    const startY = useRef(0);
-    const isDragging = useRef(false);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -61,27 +63,28 @@ export default function Canvas({ expression }){
             startY.current = e.clientY;
         }
 
+
         const onMouseMove = (e) => {
-            if(!isDragging.current)
-                return ;
+          if (!isDragging.current) return;
 
-            const dx = transform_x(x_domain.current, canvas_domain, e.clientX) - transform_y(y_domain.current, canvas_domain, startX.current);
-            const dy = transform_y(y_domain.current, canvas_domain, e.clientY) - transform_y(y_domain.current, canvas_domain, startY.current);
-            console.log(dx, dy);
-            const { x_dom, y_dom } = pan(x_domain.current, y_domain.current, canvas_domain, dx, dy);
+          const dx = e.clientX - startX.current;
+          const dy = e.clientY - startY.current;
 
-            x_domain.current = x_dom;
-            y_domain.current = y_dom;
+          const { x_dom, y_dom } =
+            pan(x_domain.current, y_domain.current, canvas_domain, dx, dy);
 
-            startX.current = e.clientX;
-            startY.current = e.clientY;
+          x_domain.current = x_dom;
+          y_domain.current = y_dom;
 
-            const ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, WIDTH, HEIGHT);
-            grid_printer(ctx, x_domain.current, y_domain.current, canvas_domain);
-            plot_printer(ctx, x_domain.current, y_domain.current, canvas_domain, expression);
-        }
+          // Update start positions to current mouse position
+          startX.current = e.clientX;
+          startY.current = e.clientY;
 
+          const ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, WIDTH, HEIGHT);
+          grid_printer(ctx, x_domain.current, y_domain.current, canvas_domain);
+          plot_printer(ctx, x_domain.current, y_domain.current, canvas_domain, expression);
+        };
         const onMouseUp = (e) => {
             isDragging.current = false;
         }
@@ -107,9 +110,6 @@ export default function Canvas({ expression }){
         plot_printer(ctx, x_domain.current, y_domain.current, canvas_domain, expression);
     }, [x_domain, y_domain]);
 
-    const [start, setStart] = useState(false);
-    const hover = (e) =>{
-    }
     
 
     return (
