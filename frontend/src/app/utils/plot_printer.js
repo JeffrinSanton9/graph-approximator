@@ -1,10 +1,15 @@
 import evaluator from './evaluate.js';
 import transform from './domain_to_canvas.js';
 
+function sampling_calc(x_domain){
+
+}
 export default function plot_printer(ctx, x_dom, y_dom, canvas_domain, expression){
     var pre = undefined;
     const x_domain = x_dom.map(Math.floor);
     const y_domain = y_dom.map(Math.floor);
+
+
     for(let x = x_domain[0]; x < x_domain[1]; x += 0.1){
         const y = evaluator(x_domain, y_domain, canvas_domain, expression, x);
         const canvas_point = transform(x_domain, y_domain, canvas_domain, x, y);
