@@ -35,5 +35,3 @@ def taylor_series(points , point_of_approx, no_of_terms=10):
         if i != no_of_terms - 1:
             approx_function += "+"
     return approx_function
-
-print(taylor_series([(2,3),(4,5),(2,4),(1,4)], (1, 1), 10))

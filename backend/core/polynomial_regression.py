@@ -16,8 +16,8 @@ def polynomial_regression(data_points , degree:int = 4):
     res = ""
     for i in range(len(coefficients)):
         if i == len(coefficients) - 1:
-            res += str(round(coefficients[i], 2)) + " * (x ** " + str(i) + ")"
+            res += str(round(coefficients[i], 2)) + " * (x ^ " + str(i) + ")"
             break
-        res += str(round(coefficients[i], 2)) + " * (x ** " + str(i) + ") + "
+        res += str(round(coefficients[i], 2)) + " * (x ^ " + str(i) + ") + "
     return res
 

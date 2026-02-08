@@ -1,38 +1,28 @@
 import transform from '@/app/utils/canvas_to_domain.js';
-import { transform_x, transform_y } from "@/app/utils/canvas_to_domain.js";
 
-export function zoom_in(anchor, x_domain, y_domain, canvas_domain, factor = 0.1){
-    anchor = transform(x_domain, y_domain, canvas_domain, anchor[0], anchor[1]);
+export function zoom(anchor, x_domain, y_domain, canvas_domain, scale) {
+    const [ax, ay] = transform(
+        x_domain,
+        y_domain,
+        canvas_domain,
+        anchor[0],
+        anchor[1]
+    );
 
-    const x_left = anchor[0] - x_domain[0]; 
-    const x_right = x_domain[1] - anchor[0];
-    const y_top = anchor[1] - y_domain[0];
-    const y_bottom = y_domain[1] - anchor[1];
+    const new_x = [
+        ax + (x_domain[0] - ax) * scale,
+        ax + (x_domain[1] - ax) * scale,
+    ];
 
-    x_domain[0] += x_left   * factor;
-    x_domain[1] -= x_right  * factor;
-    y_domain[0] += y_top    * factor;
-    y_domain[1] -= y_bottom * factor;
+    const new_y = [
+        ay + (y_domain[0] - ay) * scale,
+        ay + (y_domain[1] - ay) * scale,
+    ];
+
     return {
-        x_dom : x_domain,
-        y_dom : y_domain,
-    }
+        x_dom: new_x,
+        y_dom: new_y,
+    };
 }
-export function zoom_out(anchor, x_domain, y_domain, canvas_domain, factor = 0.1){
-    anchor = transform(x_domain, y_domain, canvas_domain, anchor[0], anchor[1]);
-    
-    const x_left = anchor[0] - x_domain[0];
-    const x_right = x_domain[1] - anchor[0];
-    const y_bottom = anchor[1] - y_domain[0];
-    const y_top = y_domain[1] - anchor[1];
-
-    x_domain[0] -= x_left   * factor;
-    x_domain[1] += x_right  * factor;
-    y_domain[0] -= y_top    * factor;
-    y_domain[1] += y_bottom * factor;
-    return {
-        x_dom : x_domain,
-        y_dom : y_domain,
-    }
-    
-}
+/*
+*/
