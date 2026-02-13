@@ -34,7 +34,6 @@ function plotter() {
     yn_pan_slider.addEventListener('input', function() {
        y_domain[0] = -this.value;
        y_domain[1] = this.value;
-       console.log(this.value);
        ctx.clearRect(0, 0, canvas.width, canvas.height);
        grid_printer(ctx, x_domain, y_domain, canvas_domain);
     })

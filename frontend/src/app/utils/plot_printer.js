@@ -8,7 +8,7 @@ export default function plot_printer(ctx, x_dom, y_dom, canvas_domain, expressio
     var pre = undefined;
     const x_domain = x_dom;
     const y_domain = y_dom;
-
+    
 
     for(let x = x_domain[0]; x < x_domain[1]; x += 0.1){
         const y = evaluator(x_domain, y_domain, canvas_domain, expression, x);

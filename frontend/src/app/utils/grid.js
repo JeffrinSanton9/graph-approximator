@@ -1,7 +1,6 @@
 import transform from './domain_to_canvas.js';
 import transform_c from './canvas_to_domain.js';
 import { transform_x, transform_y } from './domain_to_canvas.js';
-//[1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000]
 function roundTo(value, decimalCount) {
   const factor = Math.pow(10, decimalCount);
   return Math.round((value + Number.EPSILON) * factor) / factor;
@@ -44,7 +43,6 @@ export default function grid_printer(ctx, x_dom, y_dom, canvas_domain, spacing_f
         }
         ctx.font = '400 14px "Roboto", sans-serif';
         ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        console.log(roundTo(cur, 2));
         if(roundTo(cur, 2) !== 0){
             const test = transform(x_domain, y_domain, canvas_domain, 0, cur);
             ctx.fillText(roundTo(cur, 5), test[0] + 5, test[1] - 4);
@@ -60,7 +58,3 @@ export default function grid_printer(ctx, x_dom, y_dom, canvas_domain, spacing_f
         cur += spacing_factor;
     }
 }
-        
-        
-
-
