@@ -6,6 +6,7 @@ export default function User(){
             <Navigator/>
             <h1>User tab</h1>
             <Link href="/user/create/">Create User</Link>
+            
         </>
     );
 }
