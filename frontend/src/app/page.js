@@ -1,13 +1,12 @@
-"use client"
-import Canvas from "@/app/components/PlotCanvas.js";
-import {useState} from "react";
+import Navigator from "@/app/components/Navigator.js";
 import './globals.css';
 export default function Home() {
 
-    const math = require("mathjs");
     return (
         <>
-            <Canvas expression = {"sin(x)"}/>
+            <Navigator/>
+            <h1>Graph Approximator</h1>
+            <h1>Approximate and Visualize</h1>
         </>
     );
 }
