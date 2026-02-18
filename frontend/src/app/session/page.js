@@ -1,8 +1,11 @@
 "use client"
 import Navigator from "@/app/components/Navigator.js";
+import AddDatapoint from "@/app/components/AddDatapoint.js";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Session(){
+	const router = useRouter();
     const [formData, setFormData] = useState({ session_id: "" });
     const [session, setSession] = useState(null);
     const [error, setError] = useState("");
@@ -20,6 +23,7 @@ export default function Session(){
         try {
             const res = await fetch(`http://127.0.0.1:8000/session/${formData.session_id}`);
             if (!res.ok) throw new Error("Session not found");
+			else router.push(`/session/${formData.session_id}`);
             const data = await res.json();
             setSession(data);
         } catch (err) {
@@ -38,15 +42,6 @@ export default function Session(){
                 <button type="submit" disabled={loading}>{loading ? "Loading..." : "Login"}</button>
             </form>
             {error && <div style={{color: 'red'}}>{error}</div>}
-            {session && (
-                <div>
-                    <h3>Session Details</h3>
-                    <div>Name: {session.session_name}</div>
-                    <div>Description: {session.description}</div>
-                    <div>Created: {session.created_at}</div>
-                    <div>Updated: {session.updated_at}</div>
-                </div>
-            )}
         </>
     );
 }

@@ -6,7 +6,7 @@ export function zoom(anchor, x_domain, y_domain, canvas_domain, scale) {
         y_domain,
         canvas_domain,
         anchor[0],
-        anchor[1]
+        anchor[1] - 280
     );
 
     const new_x = [
@@ -18,6 +18,7 @@ export function zoom(anchor, x_domain, y_domain, canvas_domain, scale) {
         ay + (y_domain[0] - ay) * scale,
         ay + (y_domain[1] - ay) * scale,
     ];
+	
 
     return {
         x_dom: new_x,
