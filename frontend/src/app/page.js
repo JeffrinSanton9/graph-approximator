@@ -6,7 +6,7 @@ export default function Home() {
         <>
             <Navigator/>
             <h1>Graph Approximator</h1>
-            <h1>Approximate and Visualize</h1>
+            <p>Approximate and Visualize</p>
         </>
     );
 }

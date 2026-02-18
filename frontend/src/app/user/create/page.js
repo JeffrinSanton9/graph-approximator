@@ -1,8 +1,8 @@
 "use client"
-import { useState } from "react";
 import Navigator from "@/app/components/Navigator.js";
-export default function CreateUser(){
+import { useState } from "react";
 
+export default function CreateUser(){
     const [formData, setFormData] = useState({username : "", email : ""});
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -11,7 +11,6 @@ export default function CreateUser(){
         e.preventDefault();
         setLoading(true);
         setMessage("");
-        
         try {
             const res = await fetch("http://127.0.0.1:8000/user", {
                 method : "POST",
@@ -20,13 +19,10 @@ export default function CreateUser(){
                 },
                 body: JSON.stringify(formData)
             });
-
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
-
             const data = await res.json();
-            console.log(await data);
             setMessage(`User created: ${data.username}/n User ID: ${data.user_id}`);
             setFormData({username : "", email : ""});
         } catch (error) {
@@ -35,7 +31,6 @@ export default function CreateUser(){
             setLoading(false);
         }
     }
-
     const handleChange = (e) => {
         setFormData({
             ...formData, 
@@ -45,7 +40,7 @@ export default function CreateUser(){
     return (
         <>
             <Navigator/>
-            <h1>Sign Up</h1>
+            <h1>Create User</h1>
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
@@ -70,7 +65,6 @@ export default function CreateUser(){
                 </button>
             </form>
             {message && <h1>{message}</h1>}
-
         </>
     );
 }
