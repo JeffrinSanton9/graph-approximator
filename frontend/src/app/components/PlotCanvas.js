@@ -6,10 +6,12 @@ import plot_printer from "@/app/utils/plot_printer.js";
 import { zoom } from "@/app/utils/zoomer.js";
 import pan from "@/app/utils/panner.js";
 import { compile, parse } from 'mathjs'
+import points_printer from "@/app/utils/points_printer.js";
 
-export default function Canvas({ expression }){
+export default function Canvas({ expression, dp }){
     const WIDTH = 500;
     const HEIGHT = 500;
+	console.log(dp);
     
     const spacing_values = useRef([
         [0.01, -70],
@@ -35,7 +37,7 @@ export default function Canvas({ expression }){
     
     const index = useRef(7);  
     const count = useRef(0);
-    
+	console.log(expression);
     const expr = parse(expression); 
     const expr_com = expr.compile();
 
@@ -98,6 +100,7 @@ export default function Canvas({ expression }){
             ctx.clearRect(0, 0, WIDTH, HEIGHT);
             grid_printer(ctx, x_domain.current, y_domain.current, canvas_domain, spacing_values.current[index.current][0]);
             plot_printer(ctx, x_domain.current, y_domain.current, canvas_domain, expr_com);
+			points_printer(x_domain.current, y_domain.current, canvas_domain, dp, ctx);
         }
         
         canvas.addEventListener("wheel", onWheel, { passive: false });
@@ -139,6 +142,7 @@ export default function Canvas({ expression }){
             ctx.clearRect(0, 0, WIDTH, HEIGHT);
             grid_printer(ctx, x_domain.current, y_domain.current, canvas_domain, spacing_values.current[index.current][0]);
             plot_printer(ctx, x_domain.current, y_domain.current, canvas_domain, expr_com);
+			points_printer(x_domain.current, y_domain.current, canvas_domain, dp, ctx);
         };
         
         const onMouseUp = () => {
@@ -164,6 +168,8 @@ export default function Canvas({ expression }){
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
         grid_printer(ctx, x_domain.current, y_domain.current, canvas_domain, spacing_values.current[index.current][0]);
         plot_printer(ctx, x_domain.current, y_domain.current, canvas_domain, expr_com);
+		points_printer(x_domain.current, y_domain.current, canvas_domain, dp, ctx);
+
     }, [expr_com]);
 
     return (

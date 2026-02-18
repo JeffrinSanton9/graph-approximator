@@ -9,7 +9,7 @@ export default function plot_printer(ctx, x_dom, y_dom, canvas_domain, expressio
     const canvas_sampling_delta = 0.5;
     const domain_sampling_delta = canvas_sampling_delta * 10 * ((x_dom[1] - x_dom[0])/canvas_domain[0]);
     console.log(domain_sampling_delta); 
-    for(let x = x_domain[0]; x < x_domain[1]; x += domain_sampling_delta){
+    for(let x = x_domain[0]; x < x_domain[1]; x += 0.001){
         const y = evaluator(x_domain, y_domain, canvas_domain, expression, x);
         const canvas_point = transform(x_domain, y_domain, canvas_domain, x, y);
 

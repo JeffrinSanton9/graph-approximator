@@ -4,6 +4,12 @@ import PlotCanvas from "@/app/components/PlotCanvas.js";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
+const APPROX_METHODS = [
+    { label: "Linear Regression", value: "linear" },
+    { label: "Polynomial Regression", value: "polynomial" },
+    { label: "Taylor Series", value: "series" },
+];
+
 export default function Session() {
     const params = useParams();
     const id = params.id;
@@ -11,6 +17,11 @@ export default function Session() {
     const [datapoints, setDatapoints] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [approxMethod, setApproxMethod] = useState("linear");
+    const [approxResult, setApproxResult] = useState("");
+    const [approxLoading, setApproxLoading] = useState(false);
+    const [degree, setDegree] = useState(2);
+    const [taylorTerms, setTaylorTerms] = useState(10); // for taylor
 
     useEffect(() => {
         async function fetchSessionAndDatapoints() {
@@ -34,9 +45,40 @@ export default function Session() {
         fetchSessionAndDatapoints();
     }, [id]);
 
+    async function handleApproximate() {
+        setApproxLoading(true);
+        setApproxResult("");
+        setError("");
+        try {
+            let url = "";
+            let options = {};
+            if (approxMethod === "linear") {
+                url = `http://127.0.0.1:8000/approximate/linear/${id}`;
+                options = { method: "GET" };
+            } else if (approxMethod === "polynomial") {
+                url = `http://127.0.0.1:8000/approximate/polynomial/${id}?degree=${degree}`;
+                options = { method: "GET" };
+            } else if (approxMethod === "series") {
+                url = `http://127.0.0.1:8000/approximate/series/${id}`;
+                options = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ point_of_approximation: [0,0], no_of_terms: taylorTerms })
+                };
+            }
+            const res = await fetch(url, options);
+            if (!res.ok) throw new Error("Approximation failed");
+            const data = await res.json();
+            setApproxResult(data.result);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setApproxLoading(false);
+        }
+    }
+
     return (
         <>
-            <h1>ID : {id}</h1>
             <Navigator/>
             <h1>Session Dashboard</h1>
             <h2>Session id: {id}</h2>
@@ -47,8 +89,6 @@ export default function Session() {
                     <h3>Session Details</h3>
                     <div>Name: {session.session_name}</div>
                     <div>Description: {session.description}</div>
-                    <div>Created: {session.created_at}</div>
-                    <div>Updated: {session.updated_at}</div>
                 </div>
             )}
             <div>
@@ -60,8 +100,28 @@ export default function Session() {
                 </ul>
             </div>
             <div>
+                <h3>Approximation</h3>
+                <select value={approxMethod} onChange={e => setApproxMethod(e.target.value)}>
+                    {APPROX_METHODS.map(m => (
+                        <option key={m.value} value={m.value}>{m.label}</option>
+                    ))}
+                </select>
+                {approxMethod === "polynomial" && (
+                    <input type="number" min={1} max={10} value={degree} onChange={e => setDegree(e.target.value)} placeholder="Degree" />
+                )}
+                {approxMethod === "series" && (
+                    <input type="number" min={1} max={50} value={taylorTerms} onChange={e => setTaylorTerms(e.target.value)} placeholder="No. of Terms" />
+                )}
+                <button onClick={handleApproximate} disabled={approxLoading}>
+                    {approxLoading ? "Approximating..." : "Approximate"}
+                </button>
+                {approxResult && (
+                    <div><b>Approximated Function:</b> {approxResult}</div>
+                )}
+            </div>
+            <div>
                 <h3>Plotter</h3>
-                <PlotCanvas expression={"x^2"} />
+                <PlotCanvas expression={approxResult} dp={datapoints}/>
             </div>
         </>
     );
