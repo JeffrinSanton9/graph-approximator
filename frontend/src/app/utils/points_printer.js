@@ -2,7 +2,6 @@ import transform from "@/app/utils/domain_to_canvas.js";
 export default function points_printer(x_domain, y_domain, canvas_domain, datapoints, ctx){
 	for(let i = 0; i < datapoints.length; i++){
 		const point = datapoints[i];
-		console.log("Point :", point);
 		const canvas_point = transform(x_domain, y_domain, canvas_domain, point.x_value, point.y_value);
 		ctx.fillStyle = "blue";
 		ctx.beginPath();

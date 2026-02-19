@@ -36,7 +36,6 @@ export default function Canvas({ expression, dp = []}){
     
     const index = useRef(7);  
     const count = useRef(0);
-	console.log(expression);
     const expr = parse(expression); 
     const expr_com = expr.compile();
 
@@ -48,10 +47,11 @@ export default function Canvas({ expression, dp = []}){
     const startX = useRef(0);
     const startY = useRef(0);
     const isDragging = useRef(false);
-
+   
     // Zooming
     useEffect(() => {
         const canvas = canvasRef.current;
+        const rect = canvas.getBoundingClientRect();
         if (!canvas) return;
         
         const onWheel = (e) => {
@@ -59,15 +59,13 @@ export default function Canvas({ expression, dp = []}){
             
             if (e.deltaY < 0) {
                 // Zoom in
-                console.log(index);
-                console.log(count);
                 count.current -= 1;
                 if (index.current > 0 && count.current < spacing_values.current[index.current][1]) {
                     index.current -= 1;
                 }
                 
                 const { x_dom, y_dom } = zoom(
-                    [e.clientX, e.clientY], 
+                    [e.clientX - rect.x, e.clientY - rect.y], 
                     x_domain.current, 
                     y_domain.current, 
                     canvas_domain,
@@ -76,8 +74,6 @@ export default function Canvas({ expression, dp = []}){
                 x_domain.current = x_dom;
                 y_domain.current = y_dom;
             } else {
-                console.log(index);
-                console.log(count);
                 count.current += 1;
                 if (index.current < spacing_values.current.length - 1 && 
                     count.current >= spacing_values.current[index.current + 1][1]) {
@@ -85,7 +81,7 @@ export default function Canvas({ expression, dp = []}){
                 }
                 
                 const { x_dom, y_dom } = zoom(
-                    [e.clientX, e.clientY], 
+                    [e.clientX - rect.x , e.clientY - rect.y], 
                     x_domain.current, 
                     y_domain.current, 
                     canvas_domain, 
@@ -109,19 +105,20 @@ export default function Canvas({ expression, dp = []}){
     // Panning
     useEffect(() => {
         const canvas = canvasRef.current;
+        const rect = canvas.getBoundingClientRect();
         if (!canvas) return;
 
         const onMouseDown = (e) => {
             isDragging.current = true;
-            startX.current = e.clientX;
-            startY.current = e.clientY;
+            startX.current = e.clientX - rect.x;
+            startY.current = e.clientY - rect.y;
         }
 
         const onMouseMove = (e) => {
             if (!isDragging.current) return;
 
-            const dx = e.clientX - startX.current;
-            const dy = e.clientY - startY.current;
+            const dx = e.clientX - rect.x - startX.current;
+            const dy = e.clientY - rect.y - startY.current;
 
             const { x_dom, y_dom } = pan(
                 x_domain.current, 
@@ -134,8 +131,8 @@ export default function Canvas({ expression, dp = []}){
             x_domain.current = x_dom;
             y_domain.current = y_dom;
 
-            startX.current = e.clientX;
-            startY.current = e.clientY;
+            startX.current = e.clientX - rect.x;
+            startY.current = e.clientY - rect.y;
 
             const ctx = canvas.getContext("2d");
             ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -161,6 +158,7 @@ export default function Canvas({ expression, dp = []}){
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        const rect = canvas.getBoundingClientRect();
         if (!canvas) return;
         
         const ctx = canvas.getContext("2d");

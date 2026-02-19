@@ -1,14 +1,15 @@
 import transform from '@/app/utils/canvas_to_domain.js';
 
 export function zoom(anchor, x_domain, y_domain, canvas_domain, scale) {
+    console.log(anchor);
     const [ax, ay] = transform(
         x_domain,
         y_domain,
         canvas_domain,
         anchor[0],
-        anchor[1] - 280
+        anchor[1]
     );
-
+    console.log(ax, ay);
     const new_x = [
         ax + (x_domain[0] - ax) * scale,
         ax + (x_domain[1] - ax) * scale,
