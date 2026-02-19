@@ -1,8 +1,9 @@
+"use client"
 import Navigator from "@/app/components/Navigator.js";
 import { useState } from "react";
 
 export default function CreateSession(){
-    const [formData, setFormData] = useState({ name: "" });
+    const [formData, setFormData] = useState({ user_id : "", session_name : "", description : "" });
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -41,12 +42,28 @@ export default function CreateSession(){
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
-                    name="name"
-                    placeholder="Session Name" 
-                    value={formData.name}
+                    name="user_id"
+                    placeholder="User ID" 
+                    value={formData.user_id}
                     onChange={handleChange}
                     required
-                />
+                /> 
+                <input 
+                    type="text" 
+                    name="session_name"
+                    placeholder="Session Name" 
+                    value={formData.session_name}
+                    onChange={handleChange}
+                    required
+                /> 
+                <input 
+                    type="text" 
+                    name="description"
+                    placeholder="Description" 
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                /> 
                 <button type="submit" disabled={loading}>
                     {loading ? "Creating..." : "Create"}
                 </button>

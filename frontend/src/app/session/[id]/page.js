@@ -99,7 +99,6 @@ export default function Session() {
                     ))}
                 </ul>
                 <AddDatapoint sessionId={id} onAdd={async () => {
-                    // Refresh datapoints after adding
                     try {
                         const datapointsRes = await fetch(`http://127.0.0.1:8000/datapoint/session/${id}`);
                         if (!datapointsRes.ok) throw new Error("Could not fetch datapoints");
@@ -131,8 +130,7 @@ export default function Session() {
                 )}
             </div>
             <div>
-                <h3>Plotter</h3>
-                <PlotCanvas expression={approxResult} dp={datapoints}/>
+            <PlotCanvas expression={approxResult} dp={datapoints}/>
             </div>
         </>
     );
