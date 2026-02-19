@@ -2,41 +2,14 @@
 import Navigator from "@/app/components/Navigator.js";
 import Link from 'next/link';
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function User(){
     
-    const [formData, setFormData] = useState({username : "", email : ""});
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
-
-    async function handleSubmit(e){
-        e.preventDefault();
-        setLoading(true);
-        setMessage("");
-        
-        try {
-            const res = await fetch("http://127.0.0.1:8000/user", {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "application/json",
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-
-            const data = await res.json();
-            console.log(await data);
-            setMessage(`User created: ${data.username}/n User ID: ${data.user_id}`);
-            setFormData({username : "", email : ""});
-        } catch (error) {
-            setMessage(`Error: ${error.message}`);
-        } finally {
-            setLoading(false);
-        }
-    }
+    const [formData, setFormData] = useState({user_id : ""})
+    const router = useRouter()
 
     const handleChange = (e) => {
         setFormData({
@@ -45,10 +18,26 @@ export default function User(){
         });
     };
 
+    function handleSubmit(e){
+        e.preventDefault();
+        router.push(`/user/${formData.user_id}`);
+    }
     return (
         <>
             <Navigator/>
             <Link href="/user/create">Create User</Link>
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="user_id"
+                    placeholder="Enter your id"
+                    value={formData.user_id}
+                    onChange={handleChange}
+                    required
+                />
+                <button type="submit">Login</button>
+            </form>
         </>
     );
 }

@@ -1,10 +1,11 @@
 "use client"
 import Navigator from "@/app/components/Navigator.js";
 import Link from "next/link";
+import React from "react";
 import { useEffect, useState } from "react";
 
 export default function User({ params }) {
-    const { id } = params;
+    const { id } = React.use(params);
     const [user, setUser] = useState(null);
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ export default function User({ params }) {
                 const sessionsRes = await fetch(`http://127.0.0.1:8000/session/user/${id}`);
                 if (!sessionsRes.ok) throw new Error("Could not fetch sessions");
                 const sessionsData = await sessionsRes.json();
-                setSessions(sessionsData);
+              setSessions(sessionsData);
             } catch (err) {
                 setError(err.message);
             } finally {
