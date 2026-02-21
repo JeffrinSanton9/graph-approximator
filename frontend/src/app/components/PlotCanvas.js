@@ -170,12 +170,20 @@ export default function Canvas({ expression, dp = []}){
     }, [expr_com]);
 
     return (
-        <canvas 
-            id="plot" 
-            ref={canvasRef} 
-            width={WIDTH} 
-            height={HEIGHT} 
-            style={{ backgroundColor: 'white'}}
-        />
+        <div className="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center border border-blue-200">
+            <h2 className="text-lg font-mono text-blue-700 mb-2">Plot: <span className="font-bold">{expression}</span></h2>
+            <canvas ref={canvasRef} width={WIDTH} height={HEIGHT} className="border border-gray-300 rounded-lg" />
+            {/* Optionally show datapoints */}
+            {dp && dp.length > 0 && (
+                <div className="mt-4 w-full">
+                    <h3 className="text-md font-mono text-purple-700 mb-1">Data Points</h3>
+                    <ul className="grid grid-cols-2 gap-2 text-xs">
+                        {dp.map(point => (
+                            <li key={point.point_id} className="bg-blue-50 rounded px-2 py-1 font-mono">x: {point.x_value}, y: {point.y_value}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </div>
     );
 }

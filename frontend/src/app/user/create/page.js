@@ -38,33 +38,35 @@ export default function CreateUser(){
         });
     };
     return (
-        <>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex flex-col items-center justify-center">
             <Navigator/>
-            <h1>Create User</h1>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    name="username"
-                    placeholder="Enter your name" 
-                    value={formData.username}
-                    onChange={handleChange}
-                    required
-                />
-                <br/>
-                <input 
-                    type="email" 
-                    name="email"
-                    placeholder="Enter your email" 
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <br/>
-                <button type="submit" disabled={loading}>
-                    {loading ? "Submitting..." : "Submit"}
-                </button>
-            </form>
-            {message && <h1>{message}</h1>}
-        </>
+            <div className="max-w-lg w-full bg-white rounded-lg shadow-lg p-8 mt-8 flex flex-col items-center">
+                <h1 className="text-2xl font-bold text-blue-700 mb-4">Create User</h1>
+                <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+                    <input 
+                        type="text" 
+                        name="username"
+                        placeholder="Enter your name" 
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                        className="border border-blue-200 rounded px-3 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                    <input 
+                        type="email" 
+                        name="email"
+                        placeholder="Enter your email" 
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="border border-purple-200 rounded px-3 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-purple-400"
+                    />
+                    <button type="submit" disabled={loading} className="bg-blue-600 text-white rounded px-4 py-2 font-bold hover:bg-blue-800 transition">
+                        {loading ? "Submitting..." : "Submit"}
+                    </button>
+                </form>
+                {message && <h1 className="text-green-700 mt-4 text-center font-mono">{message}</h1>}
+            </div>
+        </div>
     );
 }
